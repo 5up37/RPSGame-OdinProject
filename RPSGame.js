@@ -19,57 +19,58 @@ function playRound(playerSelection, computerSelection) {
         }
         else if (playerSelection == "Paper") {
             if (computerSelection == "Rock") {
-                console.log("You Win! Paper beats Rock")
+                result.textContent="You Win! Paper beats Rock"
                 return 1
-        } else {console.log("You Lose! Scissors beats Rock")
+        } else {result.textContent="You Lose! Scissors beats Paper"
                 return 0}}
         else if (playerSelection == "Rock") {
             if (computerSelection == "Paper") {
-                console.log("You Lose! Paper beats Rock")
+                result.textContent="You Lose! Paper beats Rock"
                 return 0
-        } else {console.log("You Win! Rock beats Scissors")
+        } else {result.textContent="You Win! Rock beats Scissors"
                 return 1}}
         else if (playerSelection == "Scissors") {
             if (computerSelection == "Paper") {
-                console.log("You Win! Scissors beats Paper")
+                result.textContent="You Win! Scissors beats Paper"
                 return 1
-        } else {console.log("You Lose! Rock beats Scissors")
+        } else {result.textContent="You Lose! Rock beats Scissors"
                 return 0}}
-        else { console.log("I don't understand your selection. Choose between Scissors, Paper and Rock")
+        else { result.textContent="I don't understand your selection. Choose between Scissors, Paper and Rock"
                 return null}
     }}
 
-function game() {
-    let playerSelection = prompt('Rock, Paper or Scissors', 'Rock')
     let playerWins = 0
     let computerWins = 0
-
-    if(playRound(playerSelection, getComputerChoice())) { playerWins++
-}
-else {computerWins++}
-console.log('Player:' + playerWins + '   Computer:' + computerWins)
-    playerSelection = prompt('Rock, Paper or Scissors', 'Rock')
-
-    if(playRound(playerSelection, getComputerChoice())) { playerWins++
-}
-else {computerWins++}
-console.log('Player:' + playerWins + '   Computer:' + computerWins)
-    playerSelection = prompt('Rock, Paper or Scissors', 'Rock')
-    if(playRound(playerSelection, getComputerChoice())) { playerWins++
-}
-else {computerWins++}
-console.log('Player:' + playerWins + '   Computer:' + computerWins)
-    playerSelection = prompt('Rock, Paper or Scissors', 'Rock')
-    if(playRound(playerSelection, getComputerChoice())) { playerWins++
-}
-else {computerWins++}
-console.log('Player:' + playerWins + '   Computer:' + computerWins)
-    playerSelection = prompt('Rock, Paper or Scissors', 'Rock')
-    if(playRound(playerSelection, getComputerChoice())) { playerWins++
+    
+let results = document.createElement('div')
+let buttons = document.querySelectorAll('button')
+buttons.forEach((button) => {
+    button.addEventListener('click',(e) => {
+        if (playRound(button.id,getComputerChoice())) {
+            playerWins++
+        }
+        else {
+            computerWins++
+        }
+        if (playerWins < 5 && computerWins < 5) {results.textContent = `Player: ${playerWins} Computer: ${computerWins}`}
+        else if (playerWins == 5) {
+            results.textContent = `You won the game 5x${computerWins}`
+            playerWins = 0
+            computerWins = 0
+        }
+        else {
+            results.textContent = `Computer won the game 5x${playerWins}`
+            playerWins = 0
+            computerWins = 0
+        }
     }
-    else {computerWins++}
-    console.log('Player:' + playerWins + '   Computer:' + computerWins)
+    )
+    
+})
 
-    if (playerWins >= 3) {console.log('You Won!')}
-        else {console.log('You Lose!')}
-    }
+let result = document.createElement('div')
+let body = document.querySelector('body')
+body.appendChild(result)
+
+
+body.appendChild(results)
